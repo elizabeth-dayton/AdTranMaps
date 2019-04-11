@@ -1,15 +1,14 @@
-class Coordinate:
 
-    def __init__(self, x, y, type):
+class MyCoordinate:
+
+    def __init__(self, x, y, type, ID):
         self.x = x
         self.y = y
         self.type = type
-        if not is_valid_type(self):
-            print("ERROR 001 - Invalid coordinate type at " + self.x + " " + self.y)
+        self.ID = ID
 
     def is_valid_type(self):
-        if self.type is "hallway" or "door" or "office" or "conference_room" or "lobby" or "bathroom" or \
-            "closet" or "stairs" or "elevator" or "medical_room":
+        if self.type is "hallway" or "room":
                 return True
         else:
             return False
