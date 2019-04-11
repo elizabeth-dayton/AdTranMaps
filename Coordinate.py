@@ -33,3 +33,6 @@ class MyCoordinate:
             self.type = new_type
         else:
             print("ERROR 001 - Invalid coordinate type at " + self.x + " " + self.y)
+
+    def __str__(self):
+        return "X value is " + self.get_x()

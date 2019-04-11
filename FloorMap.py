@@ -10,18 +10,36 @@ class FloorMap:
 
     def read_room_data(self):
 
-        with open('RoomData.csv', newline='') as f:
+        with open(self.room_data, newline='') as f:
             reader = csv.reader(f)
             for row in reader:
-                name = row.split(',')[0]
+                name = row[0]
                 if name == "Room #":
                     continue
-                x = row.split(',')[1]
-                y = row.split(',')[2]
+                x = row[1]
+                y = row[2]
                 coordinate = MyCoordinate(x, y, 'room', name)
                 self.list_of_coordinates.append(coordinate)
-                print(name)
-                print(x)
-                print(y)
+            for i in range(len(self.list_of_coordinates)):
+                print(self.list_of_coordinates[i].ID)
+
+    def read_hallway_data(self):
+
+        with open(self.hallway_data, newline='') as f:
+            reader = csv.reader(f)
+            count = 0
+            for row in reader:
+                if row[0] == "X":
+                    continue
+                x = row[0]
+                y = row[1]
+                coordinate = MyCoordinate(x, y, 'hallway', 'Hallway' + str(count))
+                self.list_of_coordinates.append(coordinate)
+                count += 1
+            for i in range(len(self.list_of_coordinates)):
+                print(self.list_of_coordinates[i].x)
 
 
+test = FloorMap(r'C:\Users\Blake - PC\Desktop\RoomData.csv', r'C:\Users\Blake - PC\Desktop\HallwayData.csv', [])
+#test.read_room_data()
+test.read_hallway_data()
