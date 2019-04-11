@@ -1,11 +1,12 @@
 
 class MyCoordinate:
 
-    def __init__(self, x, y, type, ID):
+    def __init__(self, x, y, type, ID, edges):
         self.x = x
         self.y = y
         self.type = type
         self.ID = ID
+        self.edges = edges
 
     def is_valid_type(self):
         if self.type is "hallway" or "room":
@@ -21,6 +22,9 @@ class MyCoordinate:
 
     def get_type(self):
         return self.type
+
+    def get_ID(self):
+        return self.ID
 
     def set_x(self, new_x):
         self.x = new_x
