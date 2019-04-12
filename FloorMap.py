@@ -2,6 +2,7 @@ from Coordinate import MyCoordinate
 import csv
 from Dijkstra import Graph
 from pprint import pprint
+import turtle
 
 class FloorMap:
 
@@ -27,7 +28,7 @@ class FloorMap:
     def read_hallway_data(self):
         with open(self.hallway_data, newline='') as f:
             reader = csv.reader(f)
-            temp_list = []
+            edge_list = []
             for row in reader:
                 if row[0] == "X":
                     continue
@@ -41,13 +42,40 @@ class FloorMap:
                 coordinate = MyCoordinate(x, y, 'hallway', ID, edges)
 
                 for edge in edges:
-                    temp_list.append((ID, edge, 1))
+                    edge_list.append((ID, edge, 1))
 
                 self.list_of_coordinates.append(coordinate)
 
-        temp_list.pop(0)
-        graph = Graph(temp_list)
-        print(graph.dijkstra('Hallway11', 'Hallway17'))
+        edge_list.pop(0)
+        graph = Graph(edge_list)
+        #print(edge_list)
+        print(graph.dijkstra('2263', '2254'))
+        path = graph.dijkstra('2263', '2254')
+
+        coord_list = []
+        for i in range(len(path)):
+            #print(path[i])
+            for item in self.list_of_coordinates:
+                if path[i] in item.ID:
+                    coord_list.append((item.x.lstrip(' '), item.y.lstrip(' ')))
+
+        pprint(coord_list)
+        draw(coord_list)
+
+def draw(coordinates):
+    obj = turtle.Turtle()
+    turtle.bgpic(r'C:\Users\Blake - PC\Desktop\FLOOR_GIF.gif')
+    #window.setworldcoordinates(0,0, 950, 650)
+    obj.setx(int(coordinates[0][0]))
+    obj.sety(int(coordinates[0][1]))
+    window = turtle.Screen()
+    for item in coordinates:
+        #obj.goto(int(item[0]), int(item[1]))
+        obj.setx(int(item[0]))
+        obj.sety(int(item[1]))
+        print (item[0], item[1])
+
+    turtle.done()
 
 
 test = FloorMap(r'C:\Users\Blake - PC\Desktop\RoomData.csv', r'C:\Users\Blake - PC\Desktop\HallwayData.csv', [])
